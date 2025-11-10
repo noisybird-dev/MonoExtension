@@ -4,6 +4,10 @@
   "displayName": "[NoisyBird] MonoBehaviour Extension",
   "description": "This is a MonoBehaviour Extension.",
   "unity": "6000.2",
+  "author": {
+    "name" : "NoisyBird",
+    "email" : "noisybird.dev@gmail.com",
+  },
   "keywords": [
     "NoisyBird",
     "MonoBehaviour",
