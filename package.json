@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "displayName": "[NoisyBird] MonoBehaviour Extension",
   "description": "This is a MonoBehaviour Extension.",
-  "unity": "6000.2",
+  "unity": "6000.0",
   "author": {
     "name" : "NoisyBird",
     "email" : "noisybird.dev@gmail.com"
