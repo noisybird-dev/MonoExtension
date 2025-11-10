@@ -64,6 +64,11 @@ namespace NoisyBird.MonoExtension.Editor
                     }
                     EditorGUILayout.Space(10);
                 }
+
+                if (_monoSingletonTypes.Count <= 0)
+                {
+                    EditorGUILayout.LabelField("There is no child class of MonoSingleton<>");
+                }
             } 
             EditorGUILayout.EndVertical();
 
