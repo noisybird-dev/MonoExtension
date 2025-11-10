@@ -1,0 +1,14 @@
+{
+  "name": "com.noisybird.monoextension",
+  "version": "1.0.0",
+    "displayName": "[NoisyBird] MonoBehaviour Extension",
+  "description": "This is a MonoBehaviour Extension.",
+  "unity": "6000.2.10f1",
+  "keywords": [
+    "NoisyBird",
+    "MonoBehaviour",
+    "Extension"
+  ],
+  "dependencies": {
+  }
+}
