@@ -12,10 +12,7 @@ namespace NoisyBird.MonoExtension
         [Serializable]
         public class Entry
         {
-            [Tooltip("Full Type Name (ex - Full.Namespace.MyManager) — Auto Filled")]
             public string typeName;
-
-            [Tooltip("Prefab")]
             public GameObject prefab;
         }
 
@@ -26,13 +23,11 @@ namespace NoisyBird.MonoExtension
         {
             get
             {
-                // 1) Resources 에서 찾기
                 var reg = Resources.Load<SingletonRegistry>("NoisyBird/MonoExtension/SingletonRegistry");
                 if (reg != null)
                     return reg;
 
 #if UNITY_EDITOR
-                // 2) 에디터 환경이라면 자동 생성
                 var path = "Assets/Resources/NoisyBird/MonoExtension";
                 var assetPath = $"{path}/SingletonRegistry.asset";
 
@@ -46,7 +41,6 @@ namespace NoisyBird.MonoExtension
                 if (!System.IO.Directory.Exists("Assets/Resources/NoisyBird/MonoExtension"))
                     UnityEditor.AssetDatabase.CreateFolder("Assets/Resources/NoisyBird", "MonoExtension");
 
-                // 에셋 생성
                 reg = UnityEditor.AssetDatabase.LoadAssetAtPath<SingletonRegistry>(assetPath);
                 if (reg == null)
                 {
@@ -75,13 +69,19 @@ namespace NoisyBird.MonoExtension
         public bool TryGetEntry(Type type, out Entry entry)
         {
             if (_map == null) OnEnable();
-            return _map.TryGetValue(type.FullName, out entry);
+            if (_map == null)
+            {
+                entry = null;
+                return false;
+            }
+            return _map.TryGetValue(type?.FullName ?? string.Empty, out entry);
         }
         
         public void UpsertEntry(Type type, Entry e)
         {
             e.typeName = type.FullName;
             if (_map == null) OnEnable();
+            if (_map == null) return;
             if (e.typeName != null)
             {
                 _map[e.typeName] = e;
@@ -89,11 +89,6 @@ namespace NoisyBird.MonoExtension
                 if (idx >= 0) _entries[idx] = e;
                 else _entries.Add(e);
             }
-        }
-
-        public IEnumerable<Entry> ForEach()
-        {
-            return _entries;
         }
 
         public Type GetTypeByString(string typeFullName)
